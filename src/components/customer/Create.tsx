@@ -69,7 +69,10 @@ class Create extends React.Component<RouteComponentProps, IFormState> {
             setTimeout(() => {
                 this.props.history.push('/');
             }, 1500)
-        ]);
+        ]).catch(error => {
+            this.setState({ errorMessage: error.message });
+            console.error('There was an error!', error);
+        });;
     }
 
     private handleInputChanges = (e: React.FormEvent<HTMLInputElement>) => {
@@ -92,11 +95,14 @@ class Create extends React.Component<RouteComponentProps, IFormState> {
             default:
               break;
           }
-          this.setState(Object.assign(this.state, { errors,[name]: value }));
+         // this.setState(Object.assign(this.state, { errors,[name]: value }));
+         this.setState({
+            [e.currentTarget.name]: e.currentTarget.value,
+          
+        })
       console.log(this.state.errors);
-             this.setState({
-                  [e.currentTarget.name]: e.currentTarget.value,
-       })
+            
+      
 }
 public render() {
     const { submitSuccess, loading ,errors} = this.state;
